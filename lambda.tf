@@ -8,7 +8,7 @@ data "archive_file" "welcome" {
   type           =  "zip"
   source_file    =  "welcome.py"
   #output_path    =  "outputs/welcome.zip"
-  output_path    =   "${local.lambda_zip_location}"
+  output_path    =   "local.lambda_zip_location"
 }
 
 
@@ -16,9 +16,9 @@ data "archive_file" "welcome" {
 
 resource "aws_lambda_function" "test_lambda" {
   #filename      = "outputs/welcome.zip"
-  filename      = "${local.lambda_zip_location}"
+  filename      = "local.lambda_zip_location"
   function_name = "welcome"
-  role          = "${aws_iam_role.lambda_role.arn}"
+  role          = "aws_iam_role.lambda_role.arn"
   handler       = "welcome.hello"
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
